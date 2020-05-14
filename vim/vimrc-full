@@ -1,0 +1,101 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+Plugin 'joshdick/onedark.vim'
+Plugin 'Yggdroot/indentLine'
+Plugin 'vim-airline/vim-airline'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+""""""""""""""""""
+"""Misc configs"""
+""""""""""""""""""
+
+" enable line numbers
+set number
+
+" enable onedark
+syntax on
+colorscheme onedark
+
+" map F1 and F2 to moving between tabs
+" f1 - right, f2 - left
+map <F2> :tabn<CR>
+map <F1> :tabp<CR>
+
+" save
+map <F3> :w<CR>
+" quit
+map <F4> :q<CR>
+
+" Highlight trailing spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+" highlight all results when searching
+set hlsearch
+
+"""""""""""""""""""""""""""
+"""youcompleteme configs"""
+"""""""""""""""""""""""""""
+" disable preview box
+set completeopt-=preview
+
+" change language server for rust to rust-analyze
+let g:ycm_language_server =
+\ [
+\   {
+\     'name': 'rust',
+\     'cmdline': ['rust-analyzer'],
+\     'filetypes': ['rust'],
+\     'project_root_files': ['Cargo.toml']
+\   }
+\ ]
+
+"""""""""""""""""""""
+"""nerdtree config"""
+"""""""""""""""""""""
+" use Ctrl+n to toggle tree menu
+map <C-n> :NERDTreeToggle<CR>
+
+" map Ctrl+ arrows to move between split buffers (windows)
+map <silent> <C-Right> <c-w>l
+map <silent> <C-Left>  <c-w>h
+map <silent> <C-Up>    <c-w>k
+map <silent> <C-Down>  <c-w>j
+
+
+"""""""""""""""""""
+"""build-and-run"""
+"""""""""""""""""""
+" not a real plugin, but would be cool if this could figure out
+" what kind of project this is? perhaps looking at the root in
+" a config file, and using a command from said config?
+
+" map <F5> to build and run for cargo
+map <silent> <F5> :!cargo run<CR>
+
+"""""""""""""""""""""""
+"""indentLine config"""
+"""""""""""""""""""""""
+" make the indent line work
+let g:indentLine_setColors = 0
+
+"""""""""""""""""""""
+"""airline configs"""
+"""""""""""""""""""""
+" DONT USE THIS WITH NERDTree: let g:airline#extensions#tabline#enabled = 0
+let g:airline_powerline_fonts = 1
+

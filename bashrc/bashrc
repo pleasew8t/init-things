@@ -1,0 +1,13 @@
+
+########### BASHRC ADDITIONS #################
+# No need for coloured prompts
+PS1='[\u@\h \W]$ '
+
+# When opening new bash, use old working directory
+export PROMPT_COMMAND="pwd > /tmp/whereami"
+WHEREAMI=$HOME
+if [ -f /tmp/whereami ]; then
+	WHEREAMI=$(cat /tmp/whereami)
+fi
+cd $WHEREAMI
+
